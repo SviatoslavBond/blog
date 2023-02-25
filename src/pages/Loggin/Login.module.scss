@@ -1,0 +1,22 @@
+.login {
+	&Form {
+		display: flex;
+		flex-direction: column;
+	}
+}
+.wrap {
+	margin: 50px auto;
+	width: 400px;
+	padding: 30px 50px 50px;
+}
+.title {
+	text-align: center;
+}
+.existAcc {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	&Log {
+		color: rgb(102, 102, 208);
+		cursor: pointer;
+	}
+}

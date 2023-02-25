@@ -1,0 +1,54 @@
+// .root {
+// 	width: 400px;
+// 	padding: 50px;
+// 	border: 1px solid #dedede;
+// 	margin: 50px auto;
+// }
+
+// .field {
+// 	margin-bottom: 20px !important;
+// }
+
+// .title {
+// 	text-align: center !important;
+// 	font-weight: bold !important;
+// 	margin-bottom: 30px !important;
+// }
+
+.avatar {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+
+.auth {
+	&Form {
+		display: flex;
+		flex-direction: column;
+	}
+}
+.wrap {
+	margin: 50px auto;
+	width: 400px;
+	padding: 30px 50px 50px;
+}
+.title {
+	text-align: center;
+	margin-bottom: 30px !important;
+}
+.existAcc {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	&Log {
+		color: rgb(102, 102, 208);
+		cursor: pointer;
+	}
+}
+.image {
+	vertical-align: middle;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
+}
