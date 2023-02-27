@@ -28,7 +28,7 @@ const AuthPage = () => {
 
 		const userData = {
 			...values,
-			avatarURL: imgUrl ? `${process.env.API_URL || serverUrl}${imgUrl}` : '/broken-image.jpg'
+			avatarURL: imgUrl ? `${process.env.REACT_APP_API_URL || serverUrl}${imgUrl}` : '/broken-image.jpg'
 		}
 		console.log(userData);
 		const data = await dispatch(fetchRegister(userData));
@@ -69,7 +69,7 @@ const AuthPage = () => {
 			</Typography>
 			<div onClick={() => inputFile.current.click()} className={styles.avatar}>
 				{
-					imgUrl ? <img className={styles.image} src={`${process.env.API_URL || serverUrl}${imgUrl}`} alt='user-avatar' /> :
+					imgUrl ? <img className={styles.image} src={`${process.env.REACT_APP_API_URL || serverUrl}${imgUrl}`} alt='user-avatar' /> :
 						<Avatar sx={{ width: 100, height: 100 }} />
 				}
 

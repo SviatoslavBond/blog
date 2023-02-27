@@ -117,7 +117,7 @@ export const AddPost = () => {
 						Видалити
 					</Button>
 					<div className={styles.previewImage}>
-						<img className={styles.image} src={`${process.env.API_URL || serverUrl}${imageUrl}`} alt="Uploaded" />
+						<img className={styles.image} src={`${process.env.REACT_APP_API_URL || serverUrl}${imageUrl}`} alt="Uploaded" />
 					</div>
 
 				</>

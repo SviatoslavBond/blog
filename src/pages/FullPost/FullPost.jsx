@@ -47,7 +47,7 @@ export const FullPost = () => {
 			<Post
 				id={data._id}
 				title={data.title}
-				imageUrl={reg.test(data.imgUrl) ? `${process.env.API_URL || serverUrl}${data.imgUrl}` : imgUrl}
+				imageUrl={reg.test(data.imgUrl) ? `${process.env.REACT_APP_API_URL || serverUrl}${data.imgUrl}` : imgUrl}
 				user={data.user}
 				createdAt={data.createdAt}
 				viewsCount={data.viewsCount}

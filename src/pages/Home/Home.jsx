@@ -61,7 +61,7 @@ export const Home = () => {
 				key={index}
 				id={obj._id}
 				title={obj.title}
-				imageUrl={reg.test(obj.imgUrl) ? `${process.env.API_URL || serverUrl}${obj.imgUrl}` : imgUrl}
+				imageUrl={reg.test(obj.imgUrl) ? `${process.env.REACT_APP_API_URL || serverUrl}${obj.imgUrl}` : imgUrl}
 				user={obj.user}
 				createdAt={obj.createdAt}
 				viewsCount={obj.viewsCount}
