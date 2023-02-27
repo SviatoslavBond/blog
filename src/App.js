@@ -11,9 +11,6 @@ import './index.scss';
 import { useEffect } from 'react';
 import DrawerAppBar from './Components/TestHeader/HeaderResponseble';
 
-// export const serverUrl = 'https://blog-backend-production-79dc.up.railway.app';
-// export const url = 'http://localhost:4444';
-
 
 function App() {
 
