@@ -1,6 +1,7 @@
 
 const compressFile = (file, fieldName) => {
 	return new Promise((res, rej) => {
+
 		const formData = new FormData();
 		const img = new Image();
 		const reader = new FileReader();

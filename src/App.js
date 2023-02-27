@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuth, fetchAuthMe } from './pages/Loggin/authSlice';
+import { useDispatch } from 'react-redux';
+import { fetchAuthMe } from './pages/Loggin/authSlice';
 import Header from './Components/Header/Header'
 import Login from './pages/Loggin/Login';
 import AuthPage from './pages/AuthPage/AuthPage';
@@ -9,17 +9,26 @@ import { FullPost } from './pages/FullPost/FullPost';
 import { AddPost } from './pages/AddPost/index'
 import './index.scss';
 import { useEffect } from 'react';
+import DrawerAppBar from './Components/TestHeader/HeaderResponseble';
+
+// export const serverUrl = 'https://blog-backend-production-79dc.up.railway.app';
+// export const url = 'http://localhost:4444';
+
 
 function App() {
-	const isAuth = useSelector(selectIsAuth);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchAuthMe())
-	}, [])
+		const token = window.localStorage.getItem('token');
+		if (token) {
+			dispatch(fetchAuthMe());
+		}
+	}, []);
 	return (
 		<div className="App">
-			<Header />
-			<div className='container'>
+			<DrawerAppBar />
+			{/* <Header /> */}
+			<div className='container main container-lg'>
 				<Routes>
 					<Route path='/' element={<Home />}></Route>
 					<Route path="/login" element={< Login />} />

@@ -11,7 +11,7 @@ import { addComent } from "../ComentsBlock/comentSlice";
 
 export const FiledForComent = ({ userAvatar, postId }) => {
 	const [text, setText] = useState('');
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		const coment = {
 			text,
@@ -20,11 +20,10 @@ export const FiledForComent = ({ userAvatar, postId }) => {
 		axios.post('/coment', coment)
 			.then(res => {
 				setText('');
-				dispatch(addComent(res.data))
-				console.log(res.data);
+				dispatch(addComent(res.data));
+
 			})
 			.catch(err => console.log(err))
-
 	}
 
 	return (

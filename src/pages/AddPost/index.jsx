@@ -10,12 +10,9 @@ import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../Loggin/authSlice';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../utils/axios';
-
+import { serverUrl } from '../../utils/serverUrl';
 
 import compressFile from '../../utils/compressFile';
-
-
-
 
 export const AddPost = () => {
 	const navigate = useNavigate();
@@ -32,8 +29,11 @@ export const AddPost = () => {
 	const handleChangeFile = async (event) => {
 		try {
 			const file = event.target.files[0];
+
 			const compressedFile = await compressFile(file, 'image');
+
 			const { data } = await axios.post('/upload', compressedFile);
+
 
 			setImageUrl(data.url)
 		} catch (error) {
@@ -76,10 +76,10 @@ export const AddPost = () => {
 			}
 			if (isEdit) {
 				await axios.patch(`/posts/${id}`, fields);
-				navigate(`/posts/${id}`)
+				navigate(`/posts/${id}`);
 			} else {
 				const { data } = await axios.post('/posts', fields);
-				navigate(`/posts/${data._id}`)
+				navigate(`/posts/${data._id}`);
 			}
 		} catch (error) {
 			console.log(error);
@@ -107,17 +107,17 @@ export const AddPost = () => {
 	return (
 		<Paper style={{ padding: 30 }}>
 			<Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
-				Загрузить превью
+				Завантажити фото
 			</Button>
 
 			<input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
 			{imageUrl && (
 				<>
-					<Button variant="contained" color="error" onClick={onClickRemoveImage}>
-						Удалить
+					<Button className='ms-3' variant="contained" color="error" onClick={onClickRemoveImage}>
+						Видалити
 					</Button>
 					<div className={styles.previewImage}>
-						<img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt="Uploaded" />
+						<img className={styles.image} src={`${serverUrl}${imageUrl}`} alt="Uploaded" />
 					</div>
 
 				</>

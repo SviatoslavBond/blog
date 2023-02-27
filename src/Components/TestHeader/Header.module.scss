@@ -1,0 +1,41 @@
+.avatar {
+	margin: 20px;
+}
+.wrapper {
+	display: flex;
+	align-items: center;
+}
+.popupInfo {
+	display: flex;
+	flex-direction: column;
+}
+.header {
+	background-color: rgb(90, 90, 90);
+	padding: 20px 0 20px 0;
+	position: fixed;
+	z-index: 50;
+	width: 100%;
+}
+.userInfo {
+	// text-align: center;
+	li {
+		margin: 15px;
+	}
+	margin: 0 auto;
+}
+.fullname {
+	color: #fff;
+	margin: auto;
+	// color: black;
+	// text-align: center;
+}
+.testbox {
+	background-color: blue;
+}
+
+@media (max-width: 900px) {
+	.fullname {
+		color: #fff;
+		margin-left: 25px;
+	}
+}

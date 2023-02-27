@@ -1,8 +1,11 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
+// import { DeleteIcon, EditIcon, EyeIcon, CommentIcon } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
@@ -12,7 +15,7 @@ import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
 import { fetchDeletePostById } from './postSlice';
-import { useDispatch } from 'react-redux';
+
 export const Post = ({
 	id,
 	title,
@@ -28,6 +31,8 @@ export const Post = ({
 	isEditable,
 }) => {
 	const dispatch = useDispatch()
+	const theme = useTheme();
+	const less900 = useMediaQuery(theme.breakpoints.down('md'));
 	if (isLoading) {
 		return <PostSkeleton />;
 	}
@@ -39,8 +44,10 @@ export const Post = ({
 
 
 
+
 	return (
 		<div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
+
 			{isEditable && (
 				<div className={styles.editButtons}>
 					<Link to={`/posts/${id}/edit`}>
@@ -54,7 +61,7 @@ export const Post = ({
 				</div>
 			)}
 			{imageUrl && (
-				<div className={styles.boxImg}>
+				<div className={clsx(styles.boxImg, { 'd-none': less900 && !isFullPost })}>
 					<img
 						className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
 						src={imageUrl}

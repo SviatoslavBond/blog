@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { createSelector } from '@reduxjs/toolkit';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Grid from '@mui/material/Grid';
@@ -12,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../Components/Post/postSlice';
 import { fetchTags } from '../../Components/TagsBlock/tagsSlice';
 import axios from '../../utils/axios';
-
+import { serverUrl } from '../../utils/serverUrl';
 const imgUrl = "https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
 
 export const Home = () => {
@@ -40,12 +39,17 @@ export const Home = () => {
 		dispatch(fetchTags());
 		axios.get('/coment')
 			.then(res => {
-				// res.data.length > 0 ? setComentsLoading(false) : setComentsLoading(true);
+
 				setComents(res.data);
 				setComentsLoading(false);
 			})
 			.catch((err) => console.log(err))
 	}, []);
+
+	useEffect(() => {
+		console.log(posts.items, coments);
+
+	}, [posts, coments])
 
 	// console.log(coments);
 	const reg = new RegExp(/\/[^\/]*[^\/]*/);
@@ -57,11 +61,11 @@ export const Home = () => {
 				key={index}
 				id={obj._id}
 				title={obj.title}
-				imageUrl={reg.test(obj.imgUrl) ? `http://localhost:4444${obj.imgUrl}` : imgUrl}
+				imageUrl={reg.test(obj.imgUrl) ? `${serverUrl}${obj.imgUrl}` : imgUrl}
 				user={obj.user}
 				createdAt={obj.createdAt}
 				viewsCount={obj.viewsCount}
-				commentsCount={3}
+				commentsCount={obj.comentsCount}
 				tags={obj.tags}
 				isEditable={obj.user._id === userId}
 				isLoading={false}
@@ -71,16 +75,19 @@ export const Home = () => {
 	return (
 		<>
 			<Tabs style={{ marginBottom: 15 }} value={tagsLabel} aria-label="basic tabs example">
+
 				<Tab onClick={() => setTagsLabel(0)} label="Нові" />
 				<Tab onClick={() => setTagsLabel(1)} label="Популярні" />
+
+
 			</Tabs>
 			<Grid container spacing={4}>
 
-				<Grid xs={6} md={8} item>
+				<Grid xs={12} md={8} item>
 					{postsItems}
 				</Grid>
 
-				<Grid xs={4} item>
+				<Grid xs={12} md={4} item>
 					<TagsBlock items={tags.items} isLoading={isTagsLoding} />
 					<CommentsBlock
 						likecount

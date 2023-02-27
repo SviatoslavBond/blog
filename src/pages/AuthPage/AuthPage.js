@@ -8,6 +8,7 @@ import { selectIsAuth, fetchRegister } from "../Loggin/authSlice";
 import { useForm } from "react-hook-form";
 import compressFile from "../../utils/compressFile";
 import axios from '../../utils/axios'
+import { serverUrl } from "../../utils/serverUrl";
 const AuthPage = () => {
 	const isAuth = useSelector(selectIsAuth)
 	const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
@@ -24,10 +25,12 @@ const AuthPage = () => {
 	const inputFile = useRef()
 
 	const onSubmit = async (values) => {
+
 		const userData = {
 			...values,
-			avatarURL: `http://localhost:4444${imgUrl}`
+			avatarURL: imgUrl ? `${serverUrl}${imgUrl}` : '/broken-image.jpg'
 		}
+		console.log(userData);
 		const data = await dispatch(fetchRegister(userData));
 		// console.log(data.p)
 		if ('token' in data.payload) {
@@ -66,7 +69,7 @@ const AuthPage = () => {
 			</Typography>
 			<div onClick={() => inputFile.current.click()} className={styles.avatar}>
 				{
-					imgUrl ? <img className={styles.image} src={`http://localhost:4444${imgUrl}`} alt='user-avatar' /> :
+					imgUrl ? <img className={styles.image} src={`${serverUrl}${imgUrl}`} alt='user-avatar' /> :
 						<Avatar sx={{ width: 100, height: 100 }} />
 				}
 
