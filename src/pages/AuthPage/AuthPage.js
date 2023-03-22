@@ -11,7 +11,7 @@ import axios from '../../utils/axios'
 import { serverUrl } from "../../utils/serverUrl";
 const AuthPage = () => {
 	const isAuth = useSelector(selectIsAuth)
-	const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
+	const { register, handleSubmit, formState: { errors, isValid } } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
@@ -30,9 +30,7 @@ const AuthPage = () => {
 			...values,
 			avatarURL: imgUrl ? `${process.env.REACT_APP_API_URL || serverUrl}${imgUrl}` : '/broken-image.jpg'
 		}
-		console.log(userData);
 		const data = await dispatch(fetchRegister(userData));
-		// console.log(data.p)
 		if ('token' in data.payload) {
 			window.localStorage.setItem('token', data.payload.token)
 		}

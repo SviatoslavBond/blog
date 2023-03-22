@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-// import { DeleteIcon, EditIcon, EyeIcon, CommentIcon } from '@mui/icons-material';
+
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +14,7 @@ import axios from '../../utils/axios';
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
-import { fetchDeletePostById } from './postSlice';
+import { deletePostById } from './postSlice';
 
 export const Post = ({
 	id,
@@ -33,13 +33,14 @@ export const Post = ({
 	const dispatch = useDispatch()
 	const theme = useTheme();
 	const less900 = useMediaQuery(theme.breakpoints.down('md'));
+
 	if (isLoading) {
 		return <PostSkeleton />;
 	}
 
 	const onClickRemove = () => {
 		axios.delete(`/posts/${id}`)
-			.then(res => dispatch(fetchDeletePostById(id)))
+			.then(res => dispatch(deletePostById(id)))
 	};
 
 

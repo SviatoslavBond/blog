@@ -17,7 +17,7 @@ export const FullPost = () => {
 	const comentsItems = useSelector(state => {
 		return state.coments.items
 	})
-
+	// console.log(comentsItems);
 	const { id } = useParams();
 	const [data, setData] = useState();
 	const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +35,6 @@ export const FullPost = () => {
 
 	}, []);
 
-	console.log(comentsItems.length)
 	if (isLoading) {
 		return <Post isLoading={isLoading} />
 	}

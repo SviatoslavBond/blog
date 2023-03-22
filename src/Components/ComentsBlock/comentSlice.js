@@ -7,8 +7,8 @@ const initialState = {
 
 export const fetchComents = createAsyncThunk(
 	'coments/fetchComents',
-	async (id) => {
-		const { data } = await axios.get(`/coment/${id}`);
+	async (post_id) => {
+		const { data } = await axios.get(`/coment/${post_id}`);
 		return data
 	}
 )

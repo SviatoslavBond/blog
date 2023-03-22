@@ -6,12 +6,12 @@ import SimpleMDE from 'react-simplemde-editor';
 
 import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth } from '../Loggin/authSlice';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../utils/axios';
 import { serverUrl } from '../../utils/serverUrl';
-
+import { addCreatedPost, updatePost } from '../../Components/Post/postSlice';
 import compressFile from '../../utils/compressFile';
 
 export const AddPost = () => {
@@ -25,16 +25,13 @@ export const AddPost = () => {
 	const inputFileRef = React.useRef(null);
 	const [isEdit, setIsEdit] = useState(null);
 	const { id } = useParams();
+	const dispatch = useDispatch();
 
 	const handleChangeFile = async (event) => {
 		try {
 			const file = event.target.files[0];
-
 			const compressedFile = await compressFile(file, 'image');
-
 			const { data } = await axios.post('/upload', compressedFile);
-
-
 			setImageUrl(data.url)
 		} catch (error) {
 			console.log(error);
@@ -72,13 +69,16 @@ export const AddPost = () => {
 				text,
 				imgUrl: imageUrl,
 				title,
-				tags: tags.split(',')
+				tags: tags.replace(/[.,]/g, '').replace(/\s+/g, ' ').trim().split(' ')
 			}
 			if (isEdit) {
-				await axios.patch(`/posts/${id}`, fields);
+				const { data } = await axios.patch(`/posts/${id}`, fields);
+				dispatch(updatePost(data))
+				console.log(data);
 				navigate(`/posts/${id}`);
 			} else {
 				const { data } = await axios.post('/posts', fields);
+				dispatch(addCreatedPost(data))
 				navigate(`/posts/${data._id}`);
 			}
 		} catch (error) {
